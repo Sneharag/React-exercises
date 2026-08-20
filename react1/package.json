@@ -1,0 +1,32 @@
+{
+  "name": "react1",
+  "version": "1.0.0",
+  "description": "This is react1",
+  "keywords": [
+    "react"
+  ],
+  "homepage": "https://github.com/Sneharag/React-exercises#readme",
+  "bugs": {
+    "url": "https://github.com/Sneharag/React-exercises/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sneharag/React-exercises.git"
+  },
+  "license": "ISC",
+  "author": "Sneha rag",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "browserslist": [ 
+    "last 2 versions"
+  ]
+}
