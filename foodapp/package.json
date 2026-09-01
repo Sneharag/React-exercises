@@ -1,7 +1,7 @@
 {
-  "name": "react1",
+  "name": "foodapp",
   "version": "1.0.0",
-  "description": "This is react1",
+  "description": "This is a sample food app",
   "keywords": [
     "react"
   ],
@@ -17,8 +17,8 @@
   "author": "Sneha rag",
   "type": "commonjs",
   "scripts": {
-    "start":"parcel index.html",
-    "build":"parcel build index.html",
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "devDependencies": {
@@ -27,8 +27,5 @@
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
-  },
-  "browserslist": [ 
-    "last 2 versions"
-  ]
+  }
 }
