@@ -24,16 +24,37 @@ function App(){
     }
   }
 
+  function handlesubmit(e) {
+    e.preventDefault();
+    console.log(e);
+    
+    console.log("Name: ",name);
+    console.log("Email: ",email);
+    console.log("Age: ",age);
+    console.log("Password: ",password);
+    console.log("Gender: ",gender);
+    console.log("Course: ",course);
+    console.log("Skills: ",skills);
+  }
+
   return (
     
     <div className="container">
       <h1>Registration form</h1>
-      <form>
+      <form onSubmit={handlesubmit}>
         <div className="form-group">
           <label>Name</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" value={name} onChange={(e) => {
+          console.log(e.target);
+    console.log(e.target.value);
+     setName(e.target.value)} }
+     />
         <p>Your name is: {name}</p>
         </div>
+
+        <button type="button" onClick={() => setName("Test")}>
+  Change Name
+</button>
 
         <div className="form-group">
           <label>Email</label>
