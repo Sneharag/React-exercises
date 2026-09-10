@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./index.css";
 
 
 function App(){
 
-
+  const [users,setUsers] = useState([]);
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [age,setAge] = useState("");
@@ -12,6 +12,32 @@ function App(){
   const [gender,setGender] = useState("");
   const [course,setCourse] = useState("");
   const [skills,setSkills] = useState([]);
+
+  // useEffect(() => {
+  //   console.log("Component loads");
+  // });
+
+  // useEffect(()=> {
+  //   console.log("Name changed",name,email);
+  //   },[name,email]);
+
+  // useEffect(()=>{
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //   .then((response) => response.json())
+  //   .then((data)=>{
+  //     console.log(data);
+  //   });
+  // },[]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((data) => { 
+      setUsers(data);
+    });
+  },[]);
+
+  
 
   function handleskills(e) {
     const skill = e.target.value;
@@ -27,7 +53,6 @@ function App(){
   function handlesubmit(e) {
     e.preventDefault();
     console.log(e);
-    
     console.log("Name: ",name);
     console.log("Email: ",email);
     console.log("Age: ",age);
@@ -50,11 +75,18 @@ function App(){
      setName(e.target.value)} }
      />
         <p>Your name is: {name}</p>
+        <p>Total users: {users.length}</p>
+        </div>
+
+        <div>
+          {users.map((user) => (
+            <p key={user.id}>{user.name}</p>
+          ))}
         </div>
 
         <button type="button" onClick={() => setName("Test")}>
-  Change Name
-</button>
+          Change Name
+        </button>
 
         <div className="form-group">
           <label>Email</label>
