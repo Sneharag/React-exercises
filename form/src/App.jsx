@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import "./index.css";
+import User from "./User";
 
 
 function App(){
@@ -12,6 +13,8 @@ function App(){
   const [gender,setGender] = useState("");
   const [course,setCourse] = useState("");
   const [skills,setSkills] = useState([]);
+  const [loading,setLoading] = useState(true);
+  const [error,setError] = useState("");
 
   // useEffect(() => {
   //   console.log("Component loads");
@@ -30,11 +33,21 @@ function App(){
   // },[]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.json())
-    .then((data) => { 
+    async function getUsers() {
+
+      try{
+
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+      const data = await response.json();
       setUsers(data);
-    });
+      setLoading(false);
+    } catch {
+      setError("Failed to load users");
+      setLoading(false);
+    }
+  }
+    getUsers();
   },[]);
 
   
@@ -65,6 +78,20 @@ function App(){
   return (
     
     <div className="container">
+      <User name="sana" email="sana@gmail.com"/>
+      <div>
+        {error && <p>{error}</p>}
+        {loading ? (
+          <p>Loading....</p>
+        ) : (users.map((user) => (
+            <div key={user.id}>
+              <h3>{user.name}</h3>
+              <p>Email: {user.email}</p>
+              <p>Phone: {user.phone}</p>
+            </div>
+          ))
+        )}
+        </div>
       <h1>Registration form</h1>
       <form onSubmit={handlesubmit}>
         <div className="form-group">
@@ -76,12 +103,6 @@ function App(){
      />
         <p>Your name is: {name}</p>
         <p>Total users: {users.length}</p>
-        </div>
-
-        <div>
-          {users.map((user) => (
-            <p key={user.id}>{user.name}</p>
-          ))}
         </div>
 
         <button type="button" onClick={() => setName("Test")}>
