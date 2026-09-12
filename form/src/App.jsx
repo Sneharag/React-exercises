@@ -16,22 +16,6 @@ function App(){
   const [loading,setLoading] = useState(true);
   const [error,setError] = useState("");
 
-  // useEffect(() => {
-  //   console.log("Component loads");
-  // });
-
-  // useEffect(()=> {
-  //   console.log("Name changed",name,email);
-  //   },[name,email]);
-
-  // useEffect(()=>{
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //   .then((response) => response.json())
-  //   .then((data)=>{
-  //     console.log(data);
-  //   });
-  // },[]);
-
   useEffect(() => {
     async function getUsers() {
 
@@ -50,8 +34,6 @@ function App(){
     getUsers();
   },[]);
 
-  
-
   function handleskills(e) {
     const skill = e.target.value;
     const checked = e.target.checked;
@@ -66,7 +48,9 @@ function App(){
   function handlesubmit(e) {
     e.preventDefault();
     console.log(e);
-    console.log("Name: ",name);
+
+    const formData = new FormData(e.target);
+    console.log(formData.get("name"));
     console.log("Email: ",email);
     console.log("Age: ",age);
     console.log("Password: ",password);
@@ -78,17 +62,15 @@ function App(){
   return (
     
     <div className="container">
-      <User name="sana" email="sana@gmail.com"/>
+     
       <div>
         {error && <p>{error}</p>}
         {loading ? (
           <p>Loading....</p>
         ) : (users.map((user) => (
-            <div key={user.id}>
-              <h3>{user.name}</h3>
-              <p>Email: {user.email}</p>
-              <p>Phone: {user.phone}</p>
-            </div>
+            <User key={user.id}
+            user={user}
+            />
           ))
         )}
         </div>
@@ -96,7 +78,7 @@ function App(){
       <form onSubmit={handlesubmit}>
         <div className="form-group">
           <label>Name</label>
-        <input type="text" value={name} onChange={(e) => {
+        <input type="text" name="name" value={name} onChange={(e) => {
           console.log(e.target);
     console.log(e.target.value);
      setName(e.target.value)} }
@@ -111,7 +93,7 @@ function App(){
 
         <div className="form-group">
           <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="email"  value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
 
         <div className="form-group">
