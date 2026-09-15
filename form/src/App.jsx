@@ -1,160 +1,21 @@
-import { useState,useEffect } from "react";
-import "./index.css";
-import User from "./User";
-
+import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
 
 function App(){
-
-  const [users,setUsers] = useState([]);
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
-  const [age,setAge] = useState("");
-  const [password,setPassword] = useState("");
-  const [gender,setGender] = useState("");
-  const [course,setCourse] = useState("");
-  const [skills,setSkills] = useState([]);
-  const [loading,setLoading] = useState(true);
-  const [error,setError] = useState("");
-
-  useEffect(() => {
-    async function getUsers() {
-
-      try{
-
-      const response = await fetch("https://jsonplaceholder.typicode.com/users");
-
-      const data = await response.json();
-      setUsers(data);
-      setLoading(false);
-    } catch {
-      setError("Failed to load users");
-      setLoading(false);
-    }
-  }
-    getUsers();
-  },[]);
-
-  function handleskills(e) {
-    const skill = e.target.value;
-    const checked = e.target.checked;
-
-    if(checked){
-      setSkills([...skills,skill]);
-    }else{
-      setSkills(skills.filter((item) => item !== skill));
-    }
-  }
-
-  function handlesubmit(e) {
-    e.preventDefault();
-    console.log(e);
-
-    const formData = new FormData(e.target);
-    console.log(formData.get("name"));
-    console.log("Email: ",email);
-    console.log("Age: ",age);
-    console.log("Password: ",password);
-    console.log("Gender: ",gender);
-    console.log("Course: ",course);
-    console.log("Skills: ",skills);
-  }
-
   return (
-    
-    <div className="container">
-     
-      <div>
-        {error && <p>{error}</p>}
-        {loading ? (
-          <p>Loading....</p>
-        ) : (users.map((user) => (
-            <User key={user.id}
-            user={user}
-            />
-          ))
-        )}
-        </div>
-      <h1>Registration form</h1>
-      <form onSubmit={handlesubmit}>
-        <div className="form-group">
-          <label>Name</label>
-        <input type="text" name="name" value={name} onChange={(e) => {
-          console.log(e.target);
-    console.log(e.target.value);
-     setName(e.target.value)} }
-     />
-        <p>Your name is: {name}</p>
-        <p>Total users: {users.length}</p>
-        </div>
+    <BrowserRouter>
+    <nav>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+    </nav>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/about" element={<About/>}/>
+    </Routes>
 
-        <button type="button" onClick={() => setName("Test")}>
-          Change Name
-        </button>
-
-        <div className="form-group">
-          <label>Email</label>
-        <input type="email"  value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-
-        <div className="form-group">
-          <label>Age</label>
-        <input type="number" value={age} onChange={(e) => setAge(e.target.value)}/>
-        </div>
-
-        <div className="form-group">
-          <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="">Address</label>
-        <textarea name="" id=""></textarea>
-        </div>
-
-      <div className="radio-group">
-        <label>Gender</label>
-              <input type="radio" name="gender" value="Male" checked={gender === "Male"} 
-              onChange={(e) => setGender(e.target.value)} />Male
-
-              <input type="radio" name="gender" value="Female" checked={gender === "Female"}
-              onChange={(e) => setGender(e.target.value)} />Female
-
-      </div>
-        
-        <div className="form-group">
-          <label>Course</label>
-        <select value={course} onChange={(e) => setCourse(e.target.value)}>
-          <option value="">Select Course</option>
-          <option value="python">Python</option>
-          <option value="react">React</option>
-          <option value="flutter">Flutter</option>
-        </select>
-        </div>
-
-        <div className="form-group">
-          <label>Skills</label>
-          <div>
-            <label>
-              <input type="checkbox" value="Python" checked={skills.includes("Python")} onChange={handleskills} />Python
-            </label>
-
-            <label>
-              <input type="checkbox" value="React" checked={skills.includes("React")} onChange={handleskills}/>React
-            </label>
-
-            <label>
-              <input type="checkbox" value="Flutter" checked={skills.includes("Flutter")} onChange={handleskills}/>Flutter
-            </label>
-          </div>
-          <p>Selected skills: {skills.join(", ")}</p>
-        </div>
-
-        <button type="submit">Register</button>
-      </form>
-    </div>
+    </BrowserRouter>
   );
 }
-
 export default App;
-
 
