@@ -3,6 +3,8 @@ import {BrowserRouter,Routes,Route,Link,useNavigate} from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import UserDetails from "./Userdetails";
+import { useEffect, useState } from "react";
+import User from "./User";
 
 function App() {
   return (
@@ -14,6 +16,18 @@ function App() {
 
 function Navigation() {
   const navigate = useNavigate();
+  const [users,setUsers] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      const data = await response.json();
+      setUsers(data);
+    }
+    getUsers();
+  },[]);
 
   function gotoAbout() {
     navigate("/about");
@@ -21,6 +35,12 @@ function Navigation() {
 
   return (
     <>
+    {users.map((user) => (
+      <User 
+      key={user.id}
+      user={user}
+      />
+    )) }
       <button onClick={gotoAbout}>
         About
       </button>
