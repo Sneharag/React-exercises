@@ -1,21 +1,46 @@
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate
+} from "react-router-dom";
+
 import Home from "./Home";
 import About from "./About";
 
-function App(){
+function App() {
   return (
     <BrowserRouter>
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-    </nav>
-    <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/about" element={<About/>}/>
-    </Routes>
-
+      <Navigation />
     </BrowserRouter>
   );
 }
-export default App;
 
+function Navigation() {
+  const navigate = useNavigate();
+
+  function gotoAbout() {
+    navigate("/about");
+  }
+
+  return (
+    <>
+      <button onClick={gotoAbout}>
+        About
+      </button>
+
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </>
+  );
+}
+
+export default App;
