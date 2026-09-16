@@ -1,13 +1,8 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  useNavigate
-} from "react-router-dom";
+import {BrowserRouter,Routes,Route,Link,useNavigate} from "react-router-dom";
 
 import Home from "./Home";
 import About from "./About";
+import UserDetails from "./Userdetails";
 
 function App() {
   return (
@@ -38,6 +33,7 @@ function Navigation() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/user/:id" element={<UserDetails />} />
       </Routes>
     </>
   );
