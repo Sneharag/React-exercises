@@ -5,6 +5,7 @@ import About from "./About";
 import UserDetails from "./Userdetails";
 import { useEffect, useState } from "react";
 import User from "./User";
+import UserContext from "./UseContext";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
 function Navigation() {
   const navigate = useNavigate();
   const [users,setUsers] = useState([]);
+  const username = "Roni";
 
   useEffect(() => {
     async function getUsers() {
@@ -34,6 +36,7 @@ function Navigation() {
   }
 
   return (
+    <UserContext.Provider value={username}>
     <>
     {users.map((user) => (
       <User 
@@ -41,6 +44,7 @@ function Navigation() {
       user={user}
       />
     )) }
+    
       <button onClick={gotoAbout}>
         About
       </button>
@@ -56,6 +60,7 @@ function Navigation() {
         <Route path="/user/:id" element={<UserDetails />} />
       </Routes>
     </>
+    </UserContext.Provider>
   );
 }
 
