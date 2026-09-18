@@ -5,7 +5,6 @@ import About from "./About";
 import UserDetails from "./Userdetails";
 import { useEffect, useState } from "react";
 import User from "./User";
-import UserContext from "./UseContext";
 
 function App() {
   return (
@@ -16,9 +15,10 @@ function App() {
 }
 
 function Navigation() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [users,setUsers] = useState([]);
-  const username = "Roni";
+  // const [username, setUsername] = useState("Roni");
+  // const [email, setEmail] = useState("roni@gmail.com");
 
   useEffect(() => {
     async function getUsers() {
@@ -31,12 +31,12 @@ function Navigation() {
     getUsers();
   },[]);
 
-  function gotoAbout() {
-    navigate("/about");
-  }
+  // function gotoAbout() {
+  //   navigate("/about");
+  // }
 
   return (
-    <UserContext.Provider value={username}>
+    
     <>
     {users.map((user) => (
       <User 
@@ -45,9 +45,13 @@ function Navigation() {
       />
     )) }
     
-      <button onClick={gotoAbout}>
+      {/* <button onClick={gotoAbout}>
         About
-      </button>
+      </button> */}
+
+       {/* <button onClick={() => setUsername("Deri")}>
+        Change username
+      </button> */}
 
       <nav>
         <Link to="/">Home</Link>
@@ -60,7 +64,7 @@ function Navigation() {
         <Route path="/user/:id" element={<UserDetails />} />
       </Routes>
     </>
-    </UserContext.Provider>
+   
   );
 }
 
