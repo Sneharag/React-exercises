@@ -6,7 +6,7 @@ import UserContext from "./UseContext";
 function User({user}) {
 
     // const username = useContext(UserContext);
-    const {username,email} = useContext(UserContext);
+    const {username,email,setUsername} = useContext(UserContext);
     return (
         <div>
     <h3>Hello, {user.name}</h3>
@@ -16,6 +16,9 @@ function User({user}) {
    <Link to={`/user/${user.id}`}>
    View details
    </Link>
+   <button onClick={() => setUsername("Deri")}>
+    Change username
+   </button>
     </div>
     );
 }
